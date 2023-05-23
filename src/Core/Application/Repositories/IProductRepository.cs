@@ -4,9 +4,10 @@ namespace CleanArch.Application.Repositories
 {
 	public interface IProductRepository
 	{
-		public Product GetById(int id);
+		public Product GetById(Guid id);
 		public List<Product> GetAll();
-		public void RemoveProduct(int id);
+		public void RemoveProduct(Guid id);
 		public Product CreateProduct(Product product);
+		public Product UpdateProduct(Product product);
 	}
 }

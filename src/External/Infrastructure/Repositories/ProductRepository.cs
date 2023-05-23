@@ -13,7 +13,7 @@ namespace CleanArch.Persistence.Repositories
 			_efContext = efContext;
 		}
 
-		public Product GetById(int id)
+		public Product GetById(Guid id)
 		{
 			var product = _efContext.Product.FirstOrDefault(x => x.ID == id);
 
@@ -33,7 +33,7 @@ namespace CleanArch.Persistence.Repositories
 				return products;
 		}
 
-		public void RemoveProduct(int id)
+		public void RemoveProduct(Guid id)
 		{
 			var product = _efContext.Product.FirstOrDefault(x => x.ID == id);
 
@@ -46,12 +46,27 @@ namespace CleanArch.Persistence.Repositories
 
 		public Product CreateProduct(Product product)
 		{
-			var products = _efContext.Product.ToList();
-			product.ID = products.Count + 1;
+			product.ID = Guid.NewGuid();
 
 			_efContext.Product.Add(product);
 			_efContext.SaveChanges();
 
+			return product;
+		}
+
+		public Product UpdateProduct(Product product)
+		{
+			var originalProduct = _efContext.Product.FirstOrDefault(x => x.ID == product.ID);
+
+			if (originalProduct is null)
+				throw new Exception("Product not found.");
+
+			originalProduct.Name = product.Name;
+			originalProduct.Price = product.Price;
+
+			_efContext.Update(originalProduct);
+			_efContext.SaveChanges();
+			
 			return product;
 		}
 	}

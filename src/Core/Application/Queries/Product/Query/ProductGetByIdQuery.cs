@@ -2,8 +2,5 @@
 
 namespace CleanArch.Application.Queries.Product.Query
 {
-	public class ProductGetByIdQuery : IRequest<ProductQueryResponse>
-	{
-		public int ID { get; set; }
-	}
+	public record ProductGetByIdQuery(Guid ID ) : IRequest<ProductQueryResponse>;
 }

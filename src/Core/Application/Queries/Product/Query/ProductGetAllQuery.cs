@@ -2,7 +2,5 @@
 
 namespace CleanArch.Application.Queries.Product.Query
 {
-	public class ProductGetAllQuery : IRequest<List<ProductQueryResponse>>
-	{
-	}
+	public record ProductGetAllQuery() : IRequest<List<ProductQueryResponse>>;
 }

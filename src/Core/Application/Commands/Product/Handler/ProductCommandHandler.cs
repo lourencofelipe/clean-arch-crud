@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CleanArch.Application.Commands.Product.Handler
 {
-	public class ProductCommandHandler : 
+	public sealed class ProductCommandHandler : 
 		IRequestHandler<ProductCreateCommand, ProductCommandResponse>,
 		IRequestHandler<ProductUpdateCommand, ProductCommandResponse>,
 		IRequestHandler<ProductDeleteCommand, ProductCommandResponse>
@@ -46,7 +46,7 @@ namespace CleanArch.Application.Commands.Product.Handler
 				Price = command.Price			
 			};
 				
-			_productRepository.GetById(entity.ID);
+			_productRepository.UpdateProduct(entity);
 
 			var response = new ProductCommandResponse
 			{

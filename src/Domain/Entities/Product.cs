@@ -1,8 +1,10 @@
-﻿namespace CleanArch.Domain.Entities
+﻿using System;
+
+namespace CleanArch.Domain.Entities
 {
 	public class Product
 	{
-		public int ID { get; set; }
+		public Guid ID { get; set; }
 		public string Name { get; set; }
 		public double Price { get; set; }
 	}

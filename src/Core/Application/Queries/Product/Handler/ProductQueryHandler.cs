@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CleanArch.Application.Queries.Product.Handler
 {
-	public class ProductQueryHandler : 
+	public sealed class ProductQueryHandler : 
 		IRequestHandler<ProductGetByIdQuery, ProductQueryResponse>,
 		IRequestHandler<ProductGetAllQuery, List<ProductQueryResponse>>
 	{
