@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using NetArchTest.Rules;
-using FluentAssertions;
 using Xunit;
 
 namespace CleanArch.Tests.Architecture.API
@@ -21,10 +20,33 @@ namespace CleanArch.Tests.Architecture.API
 				.ResideInNamespace("CleanArch.WebApi.Controllers")
 				.Should()
 				.HaveDependencyOn("MediatR")
-				.GetResult();
+				.GetResult()
+				.IsSuccessful;
 
 			// Assert
-			testResult.IsSuccessful.Should().BeTrue();
+			Assert.True(testResult, "Controllers should reference MediatR.");
+		}
+
+		[Fact]
+		[Description("Controllers cannot access repositories directly.")]
+		public void Controllers_ShouldNot_HaveDependencyOnRepositories() 
+		{
+			
+			// Arrange
+			var assembly = typeof(WebApi.AssemblyReference).Assembly;
+
+			// Act
+			var testResult = Types
+				.InAssembly(assembly)
+				.That()
+				.ResideInNamespace("CleanArch.WebApi.Controllers")
+				.ShouldNot()
+				.HaveDependencyOn("CleanArch.Persistence.Repositories")
+				.GetResult()
+				.IsSuccessful;
+
+			// Assert
+			Assert.True(testResult, "Controllers cannot access repositories directly.");
 		}
 	}
 }
