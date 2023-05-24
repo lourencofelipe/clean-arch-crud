@@ -26,8 +26,10 @@ namespace CleanArch.WebApi.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IActionResult GetProduct([FromQuery] ProductGetByIdQuery query)
-		{	
+		public IActionResult GetProduct(Guid id)
+		{
+			var query = new ProductGetByIdQuery(id);
+
 			var response = _mediator.Send(query);
 			return Ok(response);
 		}

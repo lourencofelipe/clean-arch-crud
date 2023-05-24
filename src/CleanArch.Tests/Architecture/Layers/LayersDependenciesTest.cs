@@ -9,8 +9,6 @@ namespace CleanArch.Tests.Architecture.Layers
 	{
 		private readonly string ApplicationNamespace = NamespaceIdentifiers.ApplicationNamespace;
 		private readonly string InfrastructureNamespace = NamespaceIdentifiers.InfrastructureNamespace;
-		private readonly string PresentationNamespace = NamespaceIdentifiers.PresentationNamespace;
-		private readonly string DomainNamespace = NamespaceIdentifiers.DomainNamespace;
 		private readonly string WebApiNamespace = NamespaceIdentifiers.WebApiNamespace;
 
 		[Fact]
@@ -24,7 +22,7 @@ namespace CleanArch.Tests.Architecture.Layers
 			{
 				ApplicationNamespace,
 				InfrastructureNamespace,
-				PresentationNamespace
+				WebApiNamespace
 			};
 
 			// Act
@@ -48,7 +46,6 @@ namespace CleanArch.Tests.Architecture.Layers
 			var projects = new[]
 			{
 				InfrastructureNamespace,
-				PresentationNamespace,
 				WebApiNamespace
 			};
 
@@ -72,7 +69,6 @@ namespace CleanArch.Tests.Architecture.Layers
 
 			var projects = new[]
 			{
-				PresentationNamespace,
 				WebApiNamespace
 			};
 

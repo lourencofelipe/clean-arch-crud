@@ -5,7 +5,6 @@
 		public const string DomainNamespace = "CleanArch.Domain";
 		public const string ApplicationNamespace = "CleanArch.Application";
 		public const string InfrastructureNamespace = "CleanArch.Persistence";
-		public const string PresentationNamespace = "CleanArch.Presentation";
 		public const string WebApiNamespace = "CleanArch.WebApi";
 	}
 }

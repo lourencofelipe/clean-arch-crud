@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Application\CleanArch.Application.csproj" />
-    <ProjectReference Include="..\External\Infrastructure\CleanArch.Persistence.csproj" />
-    <ProjectReference Include="..\External\Presentation\CleanArch.Presentation.csproj" />
+    <ProjectReference Include="..\Application\CleanArch.Application.csproj" />
+    <ProjectReference Include="..\Domain\CleanArch.Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\CleanArch.Persistence.csproj" />
     <ProjectReference Include="..\WebApi\CleanArch.WebApi.csproj" />
   </ItemGroup>
 

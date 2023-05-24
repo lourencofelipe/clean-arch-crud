@@ -1,6 +1,5 @@
 using CleanArch.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using Presentation.DI;
 using Application.DI;
 using Persistence.DI;
 
@@ -14,8 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication()
-				.AddPersistence()
-				.AddPresentation();
+				.AddPersistence();
 
 builder.Services.AddDbContext<EfContext>(options =>
 	   options.UseInMemoryDatabase("InMemoryDatabase"));
