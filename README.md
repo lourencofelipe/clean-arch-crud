@@ -2,7 +2,7 @@
 
 A complete and functional API.
 
-* CRUD Operations
+* CRUD Operations;
 * Architecture Tests;
 * JWT Validation;;
 * CQRS;
