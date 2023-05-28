@@ -1,6 +1,7 @@
 ﻿using CleanArch.Application.Commands.Product.Command;
 using CleanArch.Application.Queries.Product.Query;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 
@@ -25,7 +26,7 @@ namespace CleanArch.WebApi.Controllers
 			return Ok(response);
 		}
 
-		[HttpGet("{id}")]
+		[HttpGet("{id}"), Authorize]
 		public IActionResult GetProduct(Guid id)
 		{
 			var query = new ProductGetByIdQuery(id);
@@ -34,14 +35,14 @@ namespace CleanArch.WebApi.Controllers
 			return Ok(response);
 		}
 
-		[HttpPost]
+		[HttpPost, Authorize]
 		public IActionResult AddProduct(ProductCreateCommand command)
 		{
 			var response = _mediator.Send(command);
 			return Created(HttpContext.Request.GetDisplayUrl(), response.Result);
 		}
 
-		[HttpPut("{id}")]
+		[HttpPut("{id}"), Authorize]
 		public IActionResult UpdateProduct(ProductUpdateCommand command)
 		{
 			var response = _mediator.Send(command);
@@ -51,7 +52,7 @@ namespace CleanArch.WebApi.Controllers
 			return Ok(response.Result);
 		}
 
-		[HttpDelete("{id}")]
+		[HttpDelete("{id}"), Authorize]
 		public async Task<IActionResult> RemoveProduct(ProductDeleteCommand command) 
 		{
 			await _mediator.Send(command);
