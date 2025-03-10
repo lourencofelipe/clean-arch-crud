@@ -15,6 +15,6 @@ RUN dotnet publish "CleanArch.WebApi.csproj" -c Release -o /out
 # Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=build /out .
 
 ENTRYPOINT ["dotnet", "CleanArch.WebApi.dll"]
