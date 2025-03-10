@@ -7,10 +7,10 @@ COPY . .
 WORKDIR /src/WebApi
 
 # Restore Dependencies
-RUN dotnet restore "CleanArch.WebApi.csproj"
+RUN dotnet restore CleanArch.WebApi.csproj
 
 # Compiles and publish
-RUN dotnet publish "CleanArch.WebApi.csproj" -c Release -o /out
+RUN dotnet publish CleanArch.WebApi.csproj -c Release -o /out
 
 # Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
