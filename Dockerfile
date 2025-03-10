@@ -4,6 +4,7 @@ WORKDIR /src
 
 # Copy
 COPY . .
+
 WORKDIR /src/WebApi
 
 # Restore Dependencies

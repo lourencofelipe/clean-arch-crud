@@ -10,6 +10,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var tokenKey = builder.Configuration.GetValue<string>("AppSettings:Token");
+
+if (string.IsNullOrEmpty(tokenKey))
+	throw new InvalidOperationException("JWT token not present");
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -31,16 +38,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		options.TokenValidationParameters = new TokenValidationParameters
 		{
 			ValidateIssuerSigningKey = true,
-			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-				.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value!)),
+			IssuerSigningKey = key,
 			ValidateIssuer = false,
 			ValidateAudience = false
 		};
 	});
-builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
+builder.Services.AddCors(options => options.AddPolicy(name: "AllowAll",
 	policy =>
 	{
-		policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+		 policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 	}));
 
 
@@ -53,13 +59,12 @@ builder.Services.AddDbContext<EfContext>(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseCors("NgOrigins");
 
 app.UseAuthentication();
 
