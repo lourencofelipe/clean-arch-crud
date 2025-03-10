@@ -1,10 +1,10 @@
 # Build
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build 
-WORKDIR /app
+WORKDIR /src
 
 # Copy
-COPY src/. ./src/
-WORKDIR /app/WebApi
+COPY . .
+WORKDIR /src/WebApi
 
 # Restore Dependencies
 RUN dotnet restore "CleanArch.WebApi.csproj"
@@ -13,8 +13,8 @@ RUN dotnet restore "CleanArch.WebApi.csproj"
 RUN dotnet publish "CleanArch.WebApi.csproj" -c Release -o /out
 
 # Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime 
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
-COPY --from=build /out ./
+COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "CleanArch.WebApi.dll"]
