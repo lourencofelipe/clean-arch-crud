@@ -1,5 +1,5 @@
 # Build
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build 
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build 
 WORKDIR /src
 
 # Copy
@@ -14,7 +14,7 @@ RUN dotnet restore CleanArch.WebApi.csproj
 RUN dotnet publish CleanArch.WebApi.csproj -c Release -o /out
 
 # Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 COPY --from=build /out .
 
