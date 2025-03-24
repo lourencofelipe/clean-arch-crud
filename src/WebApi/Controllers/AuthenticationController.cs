@@ -18,14 +18,14 @@ namespace CleanArch.WebApi.Controllers
 			_mediator = mediator;
 		}
 
-		[HttpPost("register")]
-		public async Task<IActionResult> Register(UserCreateCommand command) 
-		{
-			var response = _mediator.Send(command);
-			return Created(HttpContext.Request.GetDisplayUrl(), response.Result);
-		}
+        [HttpPost("register")]
+        public IActionResult Register(UserCreateCommand command)
+        {
+            var response = _mediator.Send(command);
+            return Created(HttpContext.Request.GetDisplayUrl(), response.Result);
+        }
 
-		[HttpPost("login")]
+        [HttpPost("login")]
 		public async Task<IActionResult> Login(UserLoginCommand command) 
 		{
 			try
