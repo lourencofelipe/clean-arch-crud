@@ -2,72 +2,70 @@
 using CleanArch.Persistence.Context;
 using CleanArch.Domain.Entities;
 
-namespace CleanArch.Persistence.Repositories
+namespace CleanArch.Persistence.Repositories;
+public class ProductRepository : IProductRepository
 {
-	public class ProductRepository : IProductRepository
-	{
-		private readonly EfContext _efContext;
+    private readonly EfContext _efContext;
 
-		public ProductRepository(EfContext efContext)
-		{
-			_efContext = efContext;
-		}
+    public ProductRepository(EfContext efContext)
+    {
+        _efContext = efContext;
+    }
 
-		public Product GetById(Guid id)
-		{
-			var product = _efContext.Product.FirstOrDefault(x => x.ID == id);
+    public Product GetById(Guid id)
+    {
+        var product = _efContext.Product.FirstOrDefault(x => x.ID == id);
 
-			if (product is null)
-				throw new Exception("Product not found.");
-			else
-				return product;
-		}
+        if (product is null)
+            throw new Exception("Product not found.");
 
-		public List<Product> GetAll() 
-		{
-			var products = _efContext.Product.ToList();
+        return product;
+    }
 
-			if (products is null)
-				return new List<Product>();	
-			else
-				return products;
-		}
+    public List<Product> GetAll()
+    {
+        var products = _efContext.Product.ToList();
 
-		public void RemoveProduct(Guid id)
-		{
-			var product = _efContext.Product.FirstOrDefault(x => x.ID == id);
+        if (products is null)
+            return new List<Product>();
 
-			if (product is null)
-				throw new Exception("Product not found.");
-			
-			_efContext.Product.Remove(product);
-			_efContext.SaveChanges();
-		}
+        return products;
+    }
 
-		public Product CreateProduct(Product product)
-		{
-			product.ID = Guid.NewGuid();
+    public void RemoveProduct(Guid id)
+    {
+        var product = _efContext.Product.FirstOrDefault(x => x.ID == id);
 
-			_efContext.Product.Add(product);
-			_efContext.SaveChanges();
+        if (product is null)
+            throw new Exception("Product not found.");
 
-			return product;
-		}
+        _efContext.Product.Remove(product);
+        _efContext.SaveChanges();
+    }
 
-		public Product UpdateProduct(Product product)
-		{
-			var originalProduct = _efContext.Product.FirstOrDefault(x => x.ID == product.ID);
+    public Product CreateProduct(Product product)
+    {
+        product.ID = Guid.NewGuid();
 
-			if (originalProduct is null)
-				throw new Exception("Product not found.");
+        _efContext.Product.Add(product);
+        _efContext.SaveChanges();
 
-			originalProduct.Name = product.Name;
-			originalProduct.Price = product.Price;
+        return product;
+    }
 
-			_efContext.Update(originalProduct);
-			_efContext.SaveChanges();
-			
-			return product;
-		}
-	}
+    public Product UpdateProduct(Product product)
+    {
+        var originalProduct = _efContext.Product.FirstOrDefault(x => x.ID == product.ID);
+
+        if (originalProduct is null)
+            throw new Exception("Product not found.");
+
+        originalProduct.Name = product.Name;
+        originalProduct.Price = product.Price;
+
+        _efContext.Update(originalProduct);
+        _efContext.SaveChanges();
+
+        return product;
+    }
 }

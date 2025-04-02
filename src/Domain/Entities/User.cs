@@ -1,9 +1,7 @@
-﻿namespace CleanArch.Domain.Entities
+﻿namespace CleanArch.Domain.Entities;
+public class User
 {
-	public class User
-	{
-		public string Username { get; set; } = string.Empty;
-		public byte[] PasswordHash { get; set; }
-		public byte[] PasswordSalt { get; set; }
-	}
+	public string Username { get; set; } = string.Empty;
+	public byte[] PasswordHash { get; set; }
+	public byte[] PasswordSalt { get; set; }
 }
